@@ -78,7 +78,10 @@ def process_audio_files(directory_path):
         for file in files:
             file_path = os.path.join(directory_path, file)
             if os.path.isfile(file_path):
-                send_audio_file_with_delay(file_path, 0)
+                if file_path.endswith(".wav"):
+                    send_audio_file_with_delay(file_path, 0)
+                else:
+                    print(f"Ignoring non-audio file: {file_path}")
 
         # Print results as table after all requests finish
         print(tabulate(results, headers="keys", tablefmt="grid"))
